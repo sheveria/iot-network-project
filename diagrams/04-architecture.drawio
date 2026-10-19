@@ -1,0 +1,539 @@
+<mxfile host="app.diagrams.net" agent="Kiro" pages="3">
+  <diagram id="arch" name="1. Architecture">
+    <mxGraphModel dx="817" dy="429" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="a_cloud" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" value="AWS Cloud" vertex="1">
+          <mxGeometry height="1150" width="1500" x="360" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="a_region" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#00A4A6;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;dashed=1;" value="Region eu-central-1 (other regions: same stack)" vertex="1">
+          <mxGeometry height="1090" width="1320" x="520" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="a_hubvpc" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#8C4FFF;dashed=0;" value="Hub VPC (IPsec)" vertex="1">
+          <mxGeometry height="640" width="720" x="550" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="a_pub" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;strokeColor=none;fillColor=#E9F3E6;verticalAlign=top;align=left;spacingLeft=30;fontColor=#248814;dashed=0;" value="Public subnets (3 AZ)" vertex="1">
+          <mxGeometry height="110" width="680" x="570" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="a_asg" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_auto_scaling_group;strokeColor=#ED7100;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#ED7100;dashed=1;" value="Auto Scaling group: MikroTik CHR hubs (golden AMI, fixed hub_count, replaces failed hubs, no autoscaling)" vertex="1">
+          <mxGeometry height="290" width="680" x="570" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="a_aza" parent="1" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontColor=#147EBA;whiteSpace=wrap;html=1;fontSize=11;" value="AZ a" vertex="1">
+          <mxGeometry height="230" width="200" x="590" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="a_azb" parent="1" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontColor=#147EBA;whiteSpace=wrap;html=1;fontSize=11;" value="AZ b" vertex="1">
+          <mxGeometry height="230" width="200" x="810" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="a_azc" parent="1" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontColor=#147EBA;whiteSpace=wrap;html=1;fontSize=11;" value="AZ c" vertex="1">
+          <mxGeometry height="230" width="200" x="1030" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="a_pra" parent="1" style="html=1;whiteSpace=wrap;fontSize=11;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_private_subnet;strokeColor=none;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;" value="Private subnet" vertex="1">
+          <mxGeometry height="185" width="180" x="600" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="a_prb" parent="1" style="html=1;whiteSpace=wrap;fontSize=11;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_private_subnet;strokeColor=none;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;" value="Private subnet" vertex="1">
+          <mxGeometry height="185" width="180" x="820" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="a_prc" parent="1" style="html=1;whiteSpace=wrap;fontSize=11;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_private_subnet;strokeColor=none;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;" value="Private subnet" vertex="1">
+          <mxGeometry height="185" width="180" x="1040" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="a_tgwsub" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_private_subnet;strokeColor=none;fillColor=#E6F2F8;verticalAlign=top;align=left;spacingLeft=30;fontColor=#147EBA;" value="Inner subnets (slot ENIs, fixed IPs) + TGW attachment" vertex="1">
+          <mxGeometry height="130" width="680" x="570" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="a_shared" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#8C4FFF;" value="Shared services VPC" vertex="1">
+          <mxGeometry height="180" width="430" x="1400" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="a_insp" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#8C4FFF;" value="Inspection VPC" vertex="1">
+          <mxGeometry height="180" width="430" x="1400" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="a_appvpc" parent="1" style="html=1;whiteSpace=wrap;fontSize=12;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#8C4FFF;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#8C4FFF;" value="App / k8s VPC" vertex="1">
+          <mxGeometry height="150" width="430" x="1400" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="a_auto" parent="1" style="rounded=1;arcSize=3;fillColor=#F7F7F7;strokeColor=#999999;dashed=1;verticalAlign=top;align=left;spacingLeft=10;fontColor=#555555;whiteSpace=wrap;html=1;fontSize=12;" value="Automation (control plane, no database, no schedules: state = slot ENIs, Palo Alto User-ID, Vault KV, SSM)" vertex="1">
+          <mxGeometry height="350" width="1270" x="545" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="a_iotgrp" parent="1" style="rounded=1;arcSize=5;fillColor=#F5F9FF;strokeColor=#6C8EBF;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;b&gt;IoT devices behind NAT&lt;/b&gt;&lt;br&gt;any IKEv2 client&lt;br&gt;cert + IKE ID = CN" vertex="1">
+          <mxGeometry height="340" width="180" x="20" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="a_dev1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;" value="meter-000123&lt;br&gt;.meters.dev.iot..." vertex="1">
+          <mxGeometry height="55" width="130" x="45" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="a_dev3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;dashed=1;" value="... hundreds / thousands" vertex="1">
+          <mxGeometry height="55" width="130" x="45" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="a_inet" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;fontSize=10;" value="Internet&lt;br&gt;NAT / LTE&lt;br&gt;poor links" vertex="1">
+          <mxGeometry height="100" width="130" x="215" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="a_r53" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;" value="Route 53&lt;br&gt;vpn.iot.example.com&lt;br&gt;alias → GA" vertex="1">
+          <mxGeometry height="60" width="60" x="405" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="a_ga" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.global_accelerator;" value="Global Accelerator&lt;br&gt;2 anycast IP&lt;br&gt;UDP 4500/500&lt;br&gt;client affinity: SOURCE_IP" vertex="1">
+          <mxGeometry height="60" width="60" x="405" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="a_reg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#00A4A6;dashed=1;fontColor=#147EBA;fontSize=11;" value="Region 2&lt;br&gt;(same stack)&lt;br&gt;failover" vertex="1">
+          <mxGeometry height="80" width="125" x="375" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="a_nlb" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;html=1;fontSize=11;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.network_load_balancer;" value="&lt;b&gt;NLB&lt;/b&gt; UDP 4500/500&lt;br&gt;stickiness: source_ip&lt;br&gt;cross-zone, health TCP 8080" vertex="1">
+          <mxGeometry height="65" width="65" x="880" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="a_hubA" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.instance2;" value="CHR hub-a&lt;br&gt;slot a-00: 10.100.0.0/22" vertex="1">
+          <mxGeometry height="48" width="48" x="666" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="a_hubB" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.instance2;" value="CHR hub-b&lt;br&gt;slot b-00: 10.100.16.0/22" vertex="1">
+          <mxGeometry height="48" width="48" x="888.5" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="a_hubC" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.instance2;" value="CHR hub-c&lt;br&gt;slot c-00: 10.100.32.0/22" vertex="1">
+          <mxGeometry height="48" width="48" x="1106" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="a_rt" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;html=1;fontSize=11;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.route_table;" value="&lt;b&gt;Slot ENIs (Terraform, 4 per AZ)&lt;/b&gt;&lt;br&gt;fixed IP = PA syslog sender&lt;br&gt;static route pool /22 → slot ENI&lt;br&gt;attached to a hub as ether2&lt;br&gt;free = ENI available" vertex="1">
+          <mxGeometry height="58" width="60" x="610" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="a_hubnote" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#555555;whiteSpace=wrap;" value="Hub: IKEv2, cert auth, remote-id=auto&lt;br&gt;ether1: IKE from NLB, REST, health&lt;br&gt;ether2 (slot): pool → TGW, syslog → PA&lt;br&gt;scheduler: kick revoked (15 s, safety net)" vertex="1">
+          <mxGeometry height="80" width="280" x="960" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="a_tgw" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transit_gateway;" value="Transit Gateway&lt;br&gt;10.100.0.0/16 → Hub VPC" vertex="1">
+          <mxGeometry height="60" width="60" x="1305" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="a_vault" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;" value="&lt;b&gt;HashiCorp Vault&lt;/b&gt;&lt;br&gt;PKI: root (20y) + pki_iot (10y)&lt;br&gt;roles iot-&amp;lt;class&amp;gt;, vpn-hub&lt;br&gt;CRL, KV iot-devices" vertex="1">
+          <mxGeometry height="115" width="190" x="1420" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="a_siem" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=11;" value="&lt;b&gt;SIEM / Syslog&lt;/b&gt;&lt;br&gt;Hub IPsec events&lt;br&gt;(connect / disconnect)" vertex="1">
+          <mxGeometry height="115" width="180" x="1630" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="a_pa" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAD9D5;strokeColor=#AE4132;fontSize=11;" value="&lt;b&gt;Palo Alto (VM-Series)&lt;/b&gt;&lt;br&gt;L7 inspection, one policy for all IoT (pool 10.100.0.0/16)&lt;br&gt;Traffic log: Source User = iot\meter-000123" vertex="1">
+          <mxGeometry height="110" width="370" x="1430" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="a_app" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=11;" value="IoT data collection services" vertex="1">
+          <mxGeometry height="70" width="370" x="1430" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="a_lc" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="&lt;b&gt;Lambda hub_lifecycle&lt;/b&gt;&lt;br&gt;attach free slot ENI,&lt;br&gt;hub cert (5 years), config&lt;br&gt;concurrency = 1" vertex="1">
+          <mxGeometry height="60" width="60" x="620" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="a_eb" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" value="&lt;b&gt;EventBridge&lt;/b&gt;&lt;br&gt;ASG lifecycle events only" vertex="1">
+          <mxGeometry height="60" width="60" x="880" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="a_ss" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="&lt;b&gt;Lambda session_sync&lt;/b&gt;&lt;br&gt;on client cert revoke:&lt;br&gt;hubs reload CRL now,&lt;br&gt;kill tunnels, push revoked list" vertex="1">
+          <mxGeometry height="60" width="60" x="1140" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sec" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.secrets_manager;" value="&lt;b&gt;Secrets Manager&lt;/b&gt;&lt;br&gt;RouterOS provisioner" vertex="1">
+          <mxGeometry height="60" width="60" x="880" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="a_ssm" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.systems_manager;" value="&lt;b&gt;SSM Parameter&lt;/b&gt;&lt;br&gt;/iot/revoked-recent" vertex="1">
+          <mxGeometry height="60" width="60" x="1140" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="a_cw" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;" value="&lt;b&gt;CloudWatch Logs&lt;/b&gt;&lt;br&gt;Lambda logs" vertex="1">
+          <mxGeometry height="60" width="60" x="1400" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="a_op" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;" value="&lt;b&gt;Operator&lt;/b&gt;&lt;br&gt;device-cert.sh revoke" vertex="1">
+          <mxGeometry height="45" width="150" x="1270" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="ac15" edge="1" parent="1" source="a_op" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#F7F7F7;" target="a_ss" value="lambda invoke {kill}&lt;br&gt;after Vault revoke + crl/rotate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_leg1" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;strokeWidth=3;strokeColor=#1A73E8;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="30" y="1020" as="sourcePoint" />
+            <mxPoint x="90" y="1020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_leg1t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="data traffic (IPsec / decrypted)" vertex="1">
+          <mxGeometry height="30" width="250" x="100" y="1005" as="geometry" />
+        </mxCell>
+        <mxCell id="a_leg2" edge="1" parent="1" style="endArrow=open;endFill=0;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="30" y="1060" as="sourcePoint" />
+            <mxPoint x="90" y="1060" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_leg2t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="control (REST, API, events)" vertex="1">
+          <mxGeometry height="30" width="250" x="100" y="1045" as="geometry" />
+        </mxCell>
+        <mxCell id="a_leg3" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;strokeWidth=2;strokeColor=#AE4132;dashed=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="30" y="1100" as="sourcePoint" />
+            <mxPoint x="90" y="1100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_leg3t" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="identity (syslog → Palo Alto User-ID)" vertex="1">
+          <mxGeometry height="30" width="250" x="100" y="1085" as="geometry" />
+        </mxCell>
+        <mxCell id="ad1" edge="1" parent="1" source="a_iotgrp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;" target="a_inet" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad2" edge="1" parent="1" source="a_inet" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;" target="a_ga" value="IKEv2&lt;br&gt;UDP 4500/500">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad3" edge="1" parent="1" source="a_inet" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1;strokeColor=#888888;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;" target="a_r53" value="DNS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad4" edge="1" parent="1" source="a_ga" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" target="a_nlb" value="nearest&lt;br&gt;healthy region">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="455" />
+              <mxPoint x="500" y="217" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ad5" edge="1" parent="1" source="a_ga" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#1A73E8;dashed=1;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;" target="a_reg2" value="failover">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad6" edge="1" parent="1" source="a_nlb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;" target="a_hubA" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad7" edge="1" parent="1" source="a_nlb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;" target="a_hubB" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad8" edge="1" parent="1" source="a_nlb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;" target="a_hubC" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad9" edge="1" parent="1" source="a_asg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="a_tgw" value="decrypted traffic&lt;br&gt;src = pool IP">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad10" edge="1" parent="1" source="a_tgw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;" target="a_pa" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad11" edge="1" parent="1" source="a_pa" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=3;strokeColor=#1A73E8;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;" target="a_app" value="allowed traffic / port 443">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ad12" edge="1" parent="1" source="a_tgw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#1A73E8;dashed=1;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="a_tgwsub" value="return: pool /22 → slot ENI (static)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac1" edge="1" parent="1" source="a_eb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#F7F7F7;" target="a_lc" value="ASG lifecycle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac3" edge="1" parent="1" source="a_lc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="a_asg" value="REST 443 (TLS pinning):&lt;br&gt;config + hub cert">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="880" />
+              <mxPoint x="560" y="517" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ac4" edge="1" parent="1" source="a_lc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;" target="a_rt" value="attach / detach slot ENI">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac5" edge="1" parent="1" source="a_lc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="a_vault" value="AWS IAM auth,&lt;br&gt;issue vpn-hub cert">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="865" />
+              <mxPoint x="760" y="780" />
+              <mxPoint x="1290" y="780" />
+              <mxPoint x="1290" y="251" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ac6" edge="1" parent="1" source="a_ss" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.8;entryY=1;entryDx=0;entryDy=0;" target="a_asg" value="REST: reload CRL + kill peer&lt;br&gt;+ revoked list (safety net)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac8" edge="1" parent="1" source="a_ss" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;" target="a_ssm" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac9" edge="1" parent="1" source="a_ss" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#F7F7F7;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="a_cw" value="logs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac10" edge="1" parent="1" source="a_sec" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1;strokeColor=#999999;dashed=1;endArrow=open;" target="a_lc" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac11" edge="1" parent="1" source="a_sec" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1;strokeColor=#999999;dashed=1;endArrow=open;" target="a_ss" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ac12" edge="1" parent="1" source="a_asg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="a_vault" value="CRL download">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="290" />
+              <mxPoint x="1320" y="290" />
+              <mxPoint x="1320" y="100" />
+              <mxPoint x="1468" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ac13" edge="1" parent="1" source="a_asg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#ED7100;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=0.9;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a_siem" value="syslog (SIEM)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1182" y="280" />
+              <mxPoint x="1340" y="280" />
+              <mxPoint x="1340" y="60" />
+              <mxPoint x="1720" y="60" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ac14" edge="1" parent="1" source="a_asg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#AE4132;dashed=1;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="a_pa" value="IPsec syslog from slot IP&lt;br&gt;→ User-ID Syslog Parse Profile&lt;br&gt;iot\&amp;lt;id&amp;gt; ↔ pool IP">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1280" y="372" />
+              <mxPoint x="1280" y="330" />
+              <mxPoint x="1400" y="330" />
+              <mxPoint x="1400" y="412" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GdqsVLTxnCpmn1EX31Qn-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=10;" value="meter-000125&lt;br&gt;.meters.dev.iot..." vertex="1">
+          <mxGeometry height="55" width="130" x="45" y="490" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="certs" name="2. Certificates">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- lanes -->
+        <mxCell id="b_l1" value="Device certificate issuance (generated centrally)" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;startSize=30;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="1560" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="b_l2" value="Connection" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;startSize=30;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="20" y="330" width="1560" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="b_l3" value="Revocation" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#B85450;startSize=30;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="20" y="540" width="1560" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="b_l4" value="Hub certificates" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;startSize=30;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="20" y="770" width="1560" height="200" as="geometry" />
+        </mxCell>
+        <!-- lane 1: issue -->
+        <mxCell id="b_op" value="&lt;b&gt;Operator&lt;/b&gt;&lt;br&gt;provisioning host&lt;br&gt;(EC2 via SSM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b_script" value="&lt;b&gt;device-cert.sh&lt;/b&gt;&lt;br&gt;issue &amp;lt;id&amp;gt; &amp;lt;class&amp;gt;&lt;br&gt;bulk devices.csv&lt;br&gt;renew &amp;lt;id&amp;gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="75" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="b_pki" value="&lt;b&gt;Vault PKI&lt;/b&gt;&lt;br&gt;pki_iot/issue/iot-&amp;lt;class&amp;gt;&lt;br&gt;generates EC P-256 key + 1-year cert&lt;br&gt;CN = &amp;lt;id&amp;gt;.&amp;lt;class&amp;gt;.dev.iot.example.com&lt;br&gt;does NOT store the key" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="60" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="b_kv" value="&lt;b&gt;Vault KV&lt;/b&gt; kv/iot-devices/&amp;lt;id&amp;gt;&lt;br&gt;serial, class, cn, status,&lt;br&gt;expires, prev_serial" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="210" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="b_out" value="&lt;b&gt;out/&amp;lt;id&amp;gt;/&lt;/b&gt;&lt;br&gt;&amp;lt;id&amp;gt;.crt — certificate&lt;br&gt;&lt;font color=&quot;#B85450&quot;&gt;&lt;b&gt;&amp;lt;id&amp;gt;.key — private key (SECRET)&lt;/b&gt;&lt;/font&gt;&lt;br&gt;iot-ca.crt — CA chain&lt;br&gt;&amp;lt;id&amp;gt;.ipsec-params.txt — settings for any device&lt;br&gt;&amp;lt;id&amp;gt;.mikrotik.rsc / .strongswan-swanctl.conf — optional" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="50" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="b_dev" value="&lt;b&gt;IoT device&lt;/b&gt;&lt;br&gt;(any IKEv2 client)&lt;br&gt;imports cert + key + CA,&lt;br&gt;IKE ID = CN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="75" width="190" height="80" as="geometry" />
+        </mxCell>
+        <!-- lane 2: connect -->
+        <mxCell id="b_hub" value="&lt;b&gt;CHR hub&lt;/b&gt;&lt;br&gt;verifies:&lt;br&gt;signed by our CA, not expired,&lt;br&gt;not in CRL, IKE ID == CN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="900" y="370" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="b_crl" value="&lt;b&gt;Vault CRL&lt;/b&gt;&lt;br&gt;/v1/pki_iot/crl" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="385" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b_pa" value="&lt;b&gt;Palo Alto&lt;/b&gt;&lt;br&gt;user iot\&amp;lt;id&amp;gt; from syslog&lt;br&gt;(logs; one policy for all)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAD9D5;strokeColor=#AE4132;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="385" width="200" height="70" as="geometry" />
+        </mxCell>
+        <!-- lane 3: revoke -->
+        <mxCell id="b_rev" value="&lt;b&gt;device-cert.sh revoke &amp;lt;id&amp;gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="620" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="b_rev1" value="&lt;b&gt;Vault&lt;/b&gt; pki_iot/revoke&lt;br&gt;+ crl/rotate → CRL rebuilt now&lt;br&gt;KV status = revoked" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="560" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b_rev2" value="&lt;b&gt;Lambda session_sync&lt;/b&gt; {kill, since}&lt;br&gt;every hub: reload CRL (check this-update),&lt;br&gt;kill live tunnel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="650" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="b_rev3" value="&lt;b&gt;Safety net&lt;/b&gt;: SSM /iot/revoked-recent (72 h)&lt;br&gt;→ hub scheduler every 15 s kicks&lt;br&gt;if CRL reload failed on a hub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#333333;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="900" y="650" width="280" height="70" as="geometry" />
+        </mxCell>
+        <!-- lane 4: hub certs -->
+        <mxCell id="b_lc" value="&lt;b&gt;Lambda hub_lifecycle&lt;/b&gt;&lt;br&gt;new hub (ASG hook) only&lt;br&gt;no rotation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="830" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="b_hubpki" value="&lt;b&gt;Vault PKI&lt;/b&gt;&lt;br&gt;AWS IAM auth (Lambda role)&lt;br&gt;pki_iot/issue/vpn-hub&lt;br&gt;vpn.iot.example.com, 5 years" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="825" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b_hub2" value="&lt;b&gt;CHR hubs&lt;/b&gt;&lt;br&gt;REST 443: cert + key + iot-ca&lt;br&gt;identity → hub cert&lt;br&gt;renewed by replacing the hub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="900" y="830" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="b_note" value="Access is granted by issuing a certificate and removed by revoking it.&lt;br&gt;Hubs keep no client list: they trust the CA, so new hubs accept all devices immediately." style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#555555;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="820" width="360" height="100" as="geometry" />
+        </mxCell>
+        <!-- edges lane 1 -->
+        <mxCell id="be1" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontStyle=1;labelBackgroundColor=#DAE8FC;" edge="1" parent="1" source="b_op" target="b_script">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be2" value="2 issue" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontStyle=1;labelBackgroundColor=#DAE8FC;" edge="1" parent="1" source="b_script" target="b_pki">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be3" value="3 inventory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontStyle=1;labelBackgroundColor=#DAE8FC;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b_script" target="b_kv">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be4" value="4 files" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontStyle=1;labelBackgroundColor=#DAE8FC;" edge="1" parent="1" source="b_pki" target="b_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be5" value="5 secure channel&lt;br&gt;(SCP / staging bench)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;fontStyle=1;labelBackgroundColor=#DAE8FC;" edge="1" parent="1" source="b_out" target="b_dev">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- edges lane 2 -->
+        <mxCell id="be6" value="6 IKE_AUTH: cert + ID" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#1A73E8;endArrow=block;endFill=1;fontSize=11;fontStyle=1;labelBackgroundColor=#D5E8D4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="b_dev" target="b_hub">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1435" y="350" />
+              <mxPoint x="1180" y="350" />
+              <mxPoint x="1180" y="395" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="be7" value="CRL download" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#D5E8D4;" edge="1" parent="1" source="b_hub" target="b_crl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be8" value="7 syslog → PA User-ID" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;dashed=1;strokeColor=#ED7100;endArrow=open;fontSize=10;labelBackgroundColor=#D5E8D4;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="b_hub" target="b_pa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- edges lane 3 -->
+        <mxCell id="be9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="b_rev" target="b_rev1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="b_rev" target="b_rev2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="b_rev2" target="b_rev3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;dashed=1;endArrow=open;" edge="1" parent="1" source="b_op" target="b_rev">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="155" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- edges lane 4 -->
+        <mxCell id="be13" value="IAM auth + issue" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#FFE6CC;" edge="1" parent="1" source="b_lc" target="b_hubpki">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="be14" value="REST 443" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#FFE6CC;" edge="1" parent="1" source="b_hubpki" target="b_hub2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="pki" name="3. PKI">
+    <mxGraphModel dx="1720" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1720" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- section titles -->
+        <mxCell id="c_t1" value="&lt;b&gt;Private CA hierarchy&lt;/b&gt;" style="text;html=1;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="20" y="15" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c_t2" value="&lt;b&gt;What is stored where&lt;/b&gt;" style="text;html=1;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="600" y="15" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c_t3" value="&lt;b&gt;Mutual authentication (IKEv2)&lt;/b&gt;" style="text;html=1;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="960" y="15" width="400" height="30" as="geometry" />
+        </mxCell>
+        <!-- hierarchy -->
+        <mxCell id="c_root" value="&lt;b&gt;Root CA&lt;/b&gt; (pki_root)&lt;br&gt;self-signed, EC P-384&lt;br&gt;&lt;b&gt;20 years&lt;/b&gt;&lt;br&gt;trust anchor, key stays in Vault (ideally offline)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="60" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c_int" value="&lt;b&gt;Intermediate CA&lt;/b&gt; (pki_iot)&lt;br&gt;signed by Root, EC P-256&lt;br&gt;&lt;b&gt;10 years&lt;/b&gt;&lt;br&gt;signs all leaf certs, publishes CRL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="140" y="220" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c_hubc" value="&lt;b&gt;Hub certificate&lt;/b&gt;&lt;br&gt;CN vpn.iot.example.com&lt;br&gt;serverAuth, &lt;b&gt;5 years&lt;/b&gt;&lt;br&gt;role vpn-hub, issued per hub at launch, no rotation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="390" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c_devc" value="&lt;b&gt;Device certificate&lt;/b&gt;&lt;br&gt;CN &amp;lt;id&amp;gt;.&amp;lt;class&amp;gt;.dev.iot.example.com&lt;br&gt;clientAuth, &lt;b&gt;1 year&lt;/b&gt;&lt;br&gt;role iot-&amp;lt;class&amp;gt;, renew yearly" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="390" width="270" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c_rule" value="Rule: a certificate can never outlive its issuer&lt;br&gt;Root 20y &amp;gt; Intermediate 10y &amp;gt; Hub 5y &amp;gt; Device 1y&lt;br&gt;Plan: new intermediate under the same root around year 7–8" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#555555;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="520" width="550" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c_e1" value="signs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="c_root" target="c_int">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_e2" value="signs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="c_int" target="c_hubc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_e3" value="signs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="c_int" target="c_devc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- storage -->
+        <mxCell id="c_vault" value="&lt;b&gt;HashiCorp Vault (private CA)&lt;/b&gt;&lt;br&gt;• Root + Intermediate private keys (never leave Vault)&lt;br&gt;• issued certs: serial, CN, expiry (list / revoke)&lt;br&gt;• CRL: /v1/pki_iot/crl&lt;br&gt;• KV inventory kv/iot-devices&lt;br&gt;&lt;font color=&quot;#B85450&quot;&gt;• hub / device private keys: NOT stored&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="60" width="330" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="c_hubs" value="&lt;b&gt;MikroTik CHR hub&lt;/b&gt;&lt;br&gt;• own cert + private key (vpn.iot.example.com)&lt;br&gt;&amp;nbsp;&amp;nbsp;→ proves to devices it is OUR hub&lt;br&gt;• iot-ca.crt (trusted) → verifies device certs&lt;br&gt;• CRL downloaded from Vault → blocks revoked&lt;br&gt;• no client list: trusts the CA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="240" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c_devs" value="&lt;b&gt;IoT device&lt;/b&gt;&lt;br&gt;• own cert + private key (&amp;lt;id&amp;gt;.&amp;lt;class&amp;gt;...)&lt;br&gt;&amp;nbsp;&amp;nbsp;→ proves its identity to the hub&lt;br&gt;• iot-ca.crt → verifies the hub certificate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=11;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="410" width="330" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c_s1" value="CRL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="c_vault" target="c_hubs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_s2" value="cert + key at launch (Lambda)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_vault" target="c_hubs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="165" />
+              <mxPoint x="580" y="272" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_s3" value="cert + key + CA&lt;br&gt;(device-cert.sh, secure channel)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;dashed=1;endArrow=open;fontSize=10;labelBackgroundColor=#ffffff;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c_vault" target="c_devs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="165" />
+              <mxPoint x="950" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- sequence: heads -->
+        <mxCell id="c_hd" value="&lt;b&gt;IoT device&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="60" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c_hh" value="&lt;b&gt;MikroTik hub&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="60" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c_ld" value="" style="endArrow=none;html=1;dashed=1;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="100" as="sourcePoint" />
+            <mxPoint x="1120" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_lh" value="" style="endArrow=none;html=1;dashed=1;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1460" y="100" as="sourcePoint" />
+            <mxPoint x="1460" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- sequence: messages -->
+        <mxCell id="c_m1" value="1. IKE_SA_INIT: algorithms + Diffie-Hellman" style="endArrow=block;endFill=1;html=1;strokeWidth=1.5;fontSize=10;labelBackgroundColor=#ffffff;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="150" as="sourcePoint" />
+            <mxPoint x="1460" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_m1r" value="IKE_SA_INIT response (channel is now encrypted)" style="endArrow=block;endFill=1;html=1;strokeWidth=1.5;fontSize=10;labelBackgroundColor=#ffffff;verticalAlign=bottom;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1460" y="190" as="sourcePoint" />
+            <mxPoint x="1120" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_m2" value="2. IKE_AUTH: device cert + ID + signature" style="endArrow=block;endFill=1;html=1;strokeWidth=2;strokeColor=#6C8EBF;fontSize=10;labelBackgroundColor=#ffffff;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="250" as="sourcePoint" />
+            <mxPoint x="1460" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_chk1" value="&lt;b&gt;Hub checks&lt;/b&gt;&lt;br&gt;signed by our CA?&lt;br&gt;not expired?&lt;br&gt;not in CRL?&lt;br&gt;IKE ID == CN?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="235" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c_m3" value="3. IKE_AUTH: hub cert + signature" style="endArrow=block;endFill=1;html=1;strokeWidth=2;strokeColor=#D79B00;fontSize=10;labelBackgroundColor=#ffffff;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1460" y="360" as="sourcePoint" />
+            <mxPoint x="1120" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_chk2" value="&lt;b&gt;Device checks&lt;/b&gt;&lt;br&gt;signed by our CA?&lt;br&gt;ID == vpn.iot.example.com?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=10;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="960" y="345" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c_m4" value="4. virtual IP from hub pool + CHILD SA (ESP tunnel)" style="endArrow=block;endFill=1;html=1;strokeWidth=3;strokeColor=#1A73E8;fontSize=10;labelBackgroundColor=#ffffff;verticalAlign=bottom;startArrow=block;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="460" as="sourcePoint" />
+            <mxPoint x="1460" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c_note" value="Certificates are used only for authentication. Traffic is encrypted with keys negotiated in step 1 and rekeyed regularly.&lt;br&gt;&lt;br&gt;Why hubs need a certificate: authentication is mutual. Without it, a spoofed DNS / IP could impersonate the VPN server (man-in-the-middle) and receive device data." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#555555;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="960" y="580" width="680" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

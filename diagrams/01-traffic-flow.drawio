@@ -1,0 +1,110 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="01 Traffic flow" id="flow1">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="&lt;b&gt;IoT VPN: traffic flow through a MikroTik CHR hub&lt;/b&gt; (example: meter-000123, hub AZ-a, slot a-00, pool 10.100.0.0/22, device IP 10.100.0.5)" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="20" y="-10" width="1500" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Internet side -->
+        <mxCell id="dev" value="&lt;b&gt;IoT device&lt;/b&gt;&lt;br&gt;behind carrier NAT&lt;br&gt;IKEv2 + cert, UDP 4500/500&lt;br&gt;inner IP 10.100.0.5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="20" y="70" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ga" value="&lt;b&gt;Global Accelerator&lt;/b&gt;&lt;br&gt;anycast IP&lt;br&gt;UDP 4500/500" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="190" y="70" width="120" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="nlb" value="&lt;b&gt;NLB&lt;/b&gt;&lt;br&gt;UDP 4500/500&lt;br&gt;stickiness:&lt;br&gt;source_ip" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="340" y="70" width="110" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Hub container -->
+        <mxCell id="hub" value="&lt;b&gt;MikroTik CHR hub&lt;/b&gt; (AZ-a, slot a-00)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;startSize=28;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="30" width="400" height="640" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="&lt;b&gt;1. ether1&lt;/b&gt; (primary ENI, DHCP)&lt;br&gt;chain input: accept udp 500,4500 only&lt;br&gt;REST/health 443,8080 from VPC CIDR only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="70" width="320" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ips" value="&lt;b&gt;2. IPsec&lt;/b&gt;: peer iot-clients (passive, IKEv2)&lt;br&gt;identity: cert + CRL, remote-id=auto&lt;br&gt;mode-config gives 10.100.0.5/32&lt;br&gt;ESP decrypt: inner src = 10.100.0.5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="170" width="320" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="fw" value="&lt;b&gt;3. firewall forward&lt;/b&gt;&lt;br&gt;drop pool -&gt; 10.100.0.0/14 (no east-west)&lt;br&gt;accept src pool, ipsec-policy=in, out ether2&lt;br&gt;MSS clamp 1360" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="270" width="320" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="rr" value="&lt;b&gt;4. routing rule&lt;/b&gt;&lt;br&gt;src-address 10.100.0.0/22&lt;br&gt;lookup-only-in-table = inner" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="370" width="320" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="rt" value="&lt;b&gt;5. routing table inner&lt;/b&gt;&lt;br&gt;0.0.0.0/0 via INNER_GW%ether2&lt;br&gt;(main table is not used for pool traffic)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="460" width="320" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="&lt;b&gt;6. ether2&lt;/b&gt; (slot ENI, fixed IP)&lt;br&gt;no NAT, src stays 10.100.0.5&lt;br&gt;source/dest check off" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="550" width="320" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Right side row -->
+        <mxCell id="vrt" value="&lt;b&gt;7. VPC route table&lt;/b&gt;&lt;br&gt;inner subnet:&lt;br&gt;0.0.0.0/0 -&gt; TGW&lt;br&gt;&lt;i&gt;return:&lt;/i&gt;&lt;br&gt;10.100.0.0/22 -&gt; ENI a-00" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="920" y="545" width="170" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="tgw" value="&lt;b&gt;8. Transit Gateway&lt;/b&gt;&lt;br&gt;hub attachment -&gt; PA&lt;br&gt;&lt;i&gt;return:&lt;/i&gt;&lt;br&gt;10.100.0.0/16 -&gt; hub VPC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="545" width="150" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pa" value="&lt;b&gt;9. Palo Alto cluster&lt;/b&gt;&lt;br&gt;zone hub VPC, src 10.100.0.0/16&lt;br&gt;security policy + threat inspection&lt;br&gt;Traffic log: user iot\meter-000123" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="545" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="app" value="&lt;b&gt;Platform&lt;/b&gt;&lt;br&gt;EKS services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1550" y="545" width="120" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- User-ID box -->
+        <mxCell id="uid" value="&lt;b&gt;Palo Alto User-ID&lt;/b&gt;&lt;br&gt;Syslog Listener (only slot IPs) -&gt; Parse Profile&lt;br&gt;maps 10.100.0.5 = iot\meter-000123 (used for logs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;dashed=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="410" width="380" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Forward edges (blue) -->
+        <mxCell id="f1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="dev" target="ga"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="ga" target="nlb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="nlb" target="e1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;" edge="1" parent="1" source="e1" target="ips"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;" edge="1" parent="1" source="ips" target="fw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;" edge="1" parent="1" source="fw" target="rr"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;" edge="1" parent="1" source="rr" target="rt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;" edge="1" parent="1" source="rt" target="e2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="e2" target="vrt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="vrt" target="tgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="tgw" target="pa"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#0050ef;strokeWidth=3;endArrow=block;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="pa" target="app"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Return edges (orange, dashed) -->
+        <mxCell id="r1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.8;entryX=1;entryY=0.8;" edge="1" parent="1" source="app" target="pa"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.8;entryX=1;entryY=0.8;" edge="1" parent="1" source="pa" target="tgw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.8;entryX=1;entryY=0.8;" edge="1" parent="1" source="tgw" target="vrt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.8;entryX=1;entryY=0.8;" edge="1" parent="1" source="vrt" target="e2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r5" value="in ether2, dst pool: accept&lt;br&gt;IPsec policy match: ESP encrypt&lt;br&gt;out ether1 (main table)" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.5;entryX=0.5;entryY=1;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="e2" target="nlb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="500" y="590"/><mxPoint x="500" y="200"/><mxPoint x="395" y="200"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.8;entryX=1;entryY=0.8;" edge="1" parent="1" source="nlb" target="ga"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d79b00;strokeWidth=3;dashed=1;endArrow=block;exitX=0;exitY=0.8;entryX=1;entryY=0.8;" edge="1" parent="1" source="ga" target="dev"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Syslog (red dotted) -->
+        <mxCell id="s1" value="syslog udp/514 (topics ipsec,info)&lt;br&gt;src = fixed slot IP of ether2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#b85450;strokeWidth=2;dashed=1;dashPattern=2 3;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=1;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="e2" target="uid">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="680" y="710"/><mxPoint x="1100" y="710"/><mxPoint x="1100" y="500"/><mxPoint x="1320" y="500"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#b85450;strokeWidth=2;dashed=1;dashPattern=2 3;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="uid" target="pa"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Legend -->
+        <mxCell id="leg" value="&lt;b&gt;Legend&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;Solid blue&lt;/b&gt;&lt;/font&gt;: telemetry, device -&gt; platform&lt;br&gt;&lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;Dashed orange&lt;/b&gt;&lt;/font&gt;: control commands, platform -&gt; device&lt;br&gt;&lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;Dotted red&lt;/b&gt;&lt;/font&gt;: syslog for User-ID (logs only, not in the data path)&lt;br&gt;Orange boxes: the routing rule + table that forces pool traffic out of ether2" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacing=8;fontSize=11;fillColor=#ffffff;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="20" y="500" width="440" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="PoC check: hub.rsc has no explicit main-table route for the pool; verify the return packet from ether2 reaches the IPsec policy." style="text;html=1;align=left;whiteSpace=wrap;fontSize=11;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="20" y="630" width="440" height="40" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

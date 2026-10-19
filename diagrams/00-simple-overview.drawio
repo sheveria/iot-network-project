@@ -1,0 +1,95 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="00 Simple overview" id="simple1">
+    <mxGraphModel dx="1488" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;fontSize=18;" value="&lt;b&gt;IoT VPN on AWS: the whole idea in one picture&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="900" x="20" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="dev" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;b&gt;1. IoT devices&lt;/b&gt;&lt;br&gt;&lt;br&gt;behind mobile / carrier NAT&lt;br&gt;IPsec IKEv2 + certificate" vertex="1">
+          <mxGeometry height="120" width="170" x="250" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;2. Entry point&lt;/b&gt;&lt;br&gt;&lt;br&gt;Global Accelerator&lt;br&gt;+ Network LB&lt;br&gt;UDP 4500/500" vertex="1">
+          <mxGeometry height="120" width="170" x="250" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="vpc" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fillColor=none;strokeColor=#232f3e;strokeWidth=2;dashed=1;" value="AWS VPC (3 Availability Zones)" vertex="1">
+          <mxGeometry height="420" width="300" x="470" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ha" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;3. VPN hub, AZ-a&lt;/b&gt;&lt;br&gt;MikroTik router&lt;br&gt;terminates IPsec" vertex="1">
+          <mxGeometry height="90" width="240" x="500" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="hb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;3. VPN hub, AZ-b&lt;/b&gt;&lt;br&gt;MikroTik router&lt;br&gt;terminates IPsec" vertex="1">
+          <mxGeometry height="90" width="240" x="500" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="hc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;3. VPN hub, AZ-c&lt;/b&gt;&lt;br&gt;MikroTik router&lt;br&gt;terminates IPsec" vertex="1">
+          <mxGeometry height="90" width="240" x="500" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="tgw" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;4. Transit Gateway&lt;/b&gt;&lt;br&gt;&lt;br&gt;sends traffic to the firewall" vertex="1">
+          <mxGeometry height="120" width="170" x="830" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="pa" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;5. Palo Alto&lt;/b&gt;&lt;br&gt;&lt;br&gt;inspects and logs&lt;br&gt;clear (decrypted) traffic" vertex="1">
+          <mxGeometry height="120" width="170" x="830" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="app" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;6. Platform&lt;/b&gt;&lt;br&gt;&lt;br&gt;EKS services" vertex="1">
+          <mxGeometry height="120" width="170" x="830" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="vault" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;fillColor=#e1d5e7;strokeColor=#9673a6;dashed=1;" value="&lt;b&gt;Vault&lt;/b&gt; (private CA)&lt;br&gt;issues device and hub certificates, publishes the revoke list (CRL)" vertex="1">
+          <mxGeometry height="70" width="300" x="470" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="dev" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;" target="lb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2a" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="275" />
+              <mxPoint x="490" y="160" />
+            </Array>
+            <mxPoint x="420" y="275" as="sourcePoint" />
+            <mxPoint x="500" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2b" edge="1" parent="1" source="lb" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;fontSize=11;labelBackgroundColor=#ffffff;" target="hb" value="encrypted tunnel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2c" edge="1" parent="1" source="lb" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;" target="hc">
+          <mxGeometry relative="1" x="-0.1086" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="280" />
+              <mxPoint x="490" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3a" edge="1" parent="1" source="ha" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;" target="tgw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3b" edge="1" parent="1" source="hb" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;fontSize=11;labelBackgroundColor=#ffffff;" target="tgw" value="clear traffic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3c" edge="1" parent="1" source="hc" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;" target="tgw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="tgw" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;" target="pa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="pa" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=3;strokeColor=#0050ef;endArrow=block;" target="app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev" edge="1" parent="1" source="vault" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;strokeColor=#9673a6;dashed=1;endArrow=block;" target="hc">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="back" parent="1" style="text;html=1;align=left;whiteSpace=wrap;fontSize=13;fontColor=#d79b00;fontStyle=1;" value="Commands to a device go the same way back: Platform → Palo Alto → Transit Gateway → the hub that holds this device’s tunnel → device." vertex="1">
+          <mxGeometry height="50" width="630" x="810" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="notes" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top;fontSize=13;fillColor=#ffffff;strokeColor=#999999;" value="&lt;b&gt;Five things to say&lt;/b&gt;&lt;br&gt;&lt;b&gt;1.&lt;/b&gt; The VPN ends on our own MikroTik hubs, not on the shared Palo Alto.&lt;br&gt;&lt;b&gt;2.&lt;/b&gt; One hub per Availability Zone; if one fails the device reconnects to another within about a minute.&lt;br&gt;&lt;b&gt;3.&lt;/b&gt; Each hub gives devices an address from its own pool, so Palo Alto sees a normal IP traffic and can inspect and log it.&lt;br&gt;&lt;b&gt;4.&lt;/b&gt; Adding a device needs no change on any hub or firewall: Vault issues a certificate and that is all.&lt;br&gt;&lt;b&gt;5.&lt;/b&gt; Revoking a device: Vault publishes the new revoke list and the hubs reload it." vertex="1">
+          <mxGeometry height="190" width="630" x="100" y="630" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

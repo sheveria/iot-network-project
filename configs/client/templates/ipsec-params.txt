@@ -1,0 +1,44 @@
+IPsec client parameters for device {{DEVICE_ID}}
+================================================
+Vendor-neutral. Configure any IKEv2-capable device with these values.
+
+Server
+  Address (FQDN)        {{HUB_FQDN}}
+  Port                  UDP 4500 preferred: start IKE directly on 4500 ("NAT-T port") and force UDP
+                        encapsulation. Without forcing, a device that sees no NAT would try plain ESP,
+                        which the load balancer does not carry.
+                        UDP 500 is accepted as a fallback; the device then switches to 4500.
+  IKE version           IKEv2 only
+
+Authentication
+  Method                Certificate (digital signature), ECDSA P-256
+  Local ID (my ID)      FQDN: {{CN}}        <- must match exactly, connection is refused otherwise
+  Remote ID (peer ID)   FQDN: {{HUB_FQDN}}
+  Device certificate    {{DEVICE_ID}}.crt   (PEM)
+  Device private key    {{DEVICE_ID}}.key   (PEM, PKCS#8, unencrypted — SECRET)
+  CA / trust chain      iot-ca.crt          (PEM, root + intermediate; import as trusted CA)
+  Send certificate      Always (leaf only); certificate request not needed
+
+Phase 1 (IKE SA)
+  Encryption            AES-256-CBC
+  Integrity / PRF       SHA-256
+  DH group              19 (ECP-256)
+  Lifetime              12 h
+
+Phase 2 (CHILD SA / ESP)
+  Encryption            AES-256-GCM (16-byte ICV)   or   AES-256-CBC + HMAC-SHA256
+  PFS                   off
+  Lifetime              1 h
+  Mode                  tunnel
+  Local network         virtual IP assigned by server (mode-config / "request virtual IP")
+  Remote network        10.0.0.0/8
+
+Reliability (devices behind NAT, poor links)
+  NAT traversal         on
+  NAT keepalive         20 s
+  DPD                   15 s interval, 3 failures -> restart/reconnect
+  Auto-reconnect        always, retry forever, random delay 0-30 s before reconnect
+  MOBIKE                off
+
+After connecting, the device gets one IP from the server pool; all traffic to 10.0.0.0/8
+goes through the tunnel and is filtered by the central firewall.
